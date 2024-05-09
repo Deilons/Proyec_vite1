@@ -59,3 +59,13 @@ export function getTableForOf(coders,tbody) {
         `
     }
 }
+
+export function create(name,lastName,email) {
+    const newCoder = {
+        id: coders.length + 1, //date.now()
+        name: name.value,
+        lastName: lastName.value,
+        email: email.value
+        }
+    coders.push(newCoder);
+}

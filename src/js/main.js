@@ -10,10 +10,11 @@ import * as bootstrap from "bootstrap";
 
 import Swal from 'sweetalert2'
 
-
 import { coders } from "../../public/data/database.js";
 
 import { getTableForEach } from "./operations.js";
+
+import { create } from "./operations.js";
 
 const tbody = document.querySelector("tbody");
 
@@ -26,17 +27,7 @@ const lastName = document.getElementById("last-name");
 const email = document.getElementById("email");
 
 form.addEventListener("submit", function (event) {
-        const newCoder = {
-        id: coders.length + 1, //date.now()
-        name: name.value,
-        lastName: lastName.value,
-        email: email.value
-        }
-    event.preventDefault();
-    coders.push(newCoder);
-    getTableForEach(coders,tbody);
-
-    form.reset();
+    create(name,lastName,email,coders);
 
     Swal.fire({
         position: 'center',
@@ -46,12 +37,13 @@ form.addEventListener("submit", function (event) {
         timer: 1500
     })
 
-})
+    form.reset();
+    getTableForEach(coders,tbody);
 
-
+    event.preventDefault();
+});
 
 
 
 getTableForEach(coders,tbody);
-
 
