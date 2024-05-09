@@ -7,14 +7,13 @@ import * as echarts from 'echarts';
 // Import all of Bootstrap's JS
 import * as bootstrap from "bootstrap";
 
-
-import Swal from 'sweetalert2'
-
 import { coders } from "../../public/data/database.js";
 
 import { getTableForEach } from "./operations.js";
 
 import { create } from "./operations.js";
+
+import { alerSmallSuccess } from "./alerts";
 
 const tbody = document.querySelector("tbody");
 
@@ -29,14 +28,7 @@ const email = document.getElementById("email");
 form.addEventListener("submit", function (event) {
     create(name,lastName,email,coders);
 
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Coder saved successfully',
-        showConfirmButton: false,
-        timer: 1500
-    })
-
+    alerSmallSuccess("Coder saved successfully");
     form.reset();
     getTableForEach(coders,tbody);
 
