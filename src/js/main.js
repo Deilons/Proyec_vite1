@@ -15,6 +15,8 @@ import { create } from "./operations.js";
 
 import { alerSmallSuccess } from "./alerts";
 
+const table = document.querySelector("table");
+
 const tbody = document.querySelector("tbody");
 
 const form = document.querySelector("form");
@@ -33,8 +35,25 @@ form.addEventListener("submit", function (event) {
     getTableForEach(coders,tbody);
 
     event.preventDefault();
-});
+}); 
 
+
+table.addEventListener("click", function (event){
+    if(event.target.classList.contains("btn-danger")){
+        const idToDelete = event.target.getAttribute("data-id");
+
+        coders.forEach((coder,index) => {
+            if(coder.id == idToDelete) {
+                coders.splice(index, 1);
+            }
+            
+        });
+
+        alerSmallSuccess("Coder deleted")
+        getTableForEach(coders,tbody);
+
+    }
+})
 
 
 getTableForEach(coders,tbody);
