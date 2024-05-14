@@ -34,10 +34,10 @@ getTableForEach(coders,tbody);
 form.addEventListener("submit", function (event) {
     create(name,lastName,email,coders);
 
-     if (idToUpdate === undefined) {
+    if (idToUpdate === undefined) {
         create(name,lastName,email)
         alerSmallSuccess("saved")
-     } else {
+    } else {
         for(const coder of coders){
             if(coder.id == idToUpdate){
                 coder.name = name.value;
@@ -45,9 +45,9 @@ form.addEventListener("submit", function (event) {
                 coder.email = email.value;
             }
         }
-         alerSmallSuccess("update")
-         idToUpdate = undefined
-     }
+        alerSmallSuccess("update")
+        idToUpdate = undefined
+    }
 
     alerSmallSuccess("Coder saved successfully");
     form.reset();
@@ -65,14 +65,14 @@ table.addEventListener("click", function (event){
         alerSmallSuccess("Coder deleted")
         getTableForEach(coders,tbody);
 
-        if(event.target.classList.contains("btn-danger")){
-            const idToUpdate = event.target.getAttribute("data-id");
+        
+    }
+    if(event.target.classList.contains("btn-warning")){
+            idToUpdate = event.target.getAttribute("data-id");
             const coder = coders.find(coder => coder.id == idToUpdate);
-
             name.value = coder.name;
             lastName.value = coder.lastName;
             email.value = coder.email;
             
         }
-    }
 })
