@@ -9,7 +9,7 @@ import * as bootstrap from "bootstrap";
 
 import { coders } from "../../public/data/database.js";
 
-import { getTableForEach } from "./operations.js";
+import { deleteCoder, getTableForEach } from "./operations.js";
 
 import { create } from "./operations.js";
 
@@ -27,8 +27,27 @@ const lastName = document.getElementById("last-name");
 
 const email = document.getElementById("email");
 
+let idToUpdate
+
+getTableForEach(coders,tbody);
+
 form.addEventListener("submit", function (event) {
     create(name,lastName,email,coders);
+
+     if (idToUpdate === undefined) {
+        create(name,lastName,email)
+        alerSmallSuccess("saved")
+     } else {
+        for(const coder of coders){
+            if(coder.id == idToUpdate){
+                coder.name = name.value;
+                coder.lastName = lastName.value;
+                coder.email = email.value;
+            }
+        }
+         alerSmallSuccess("update")
+         idToUpdate = undefined
+     }
 
     alerSmallSuccess("Coder saved successfully");
     form.reset();
@@ -37,24 +56,23 @@ form.addEventListener("submit", function (event) {
     event.preventDefault();
 }); 
 
-
 table.addEventListener("click", function (event){
     if(event.target.classList.contains("btn-danger")){
         const idToDelete = event.target.getAttribute("data-id");
 
-        coders.forEach((coder,index) => {
-            if(coder.id == idToDelete) {
-                coders.splice(index, 1);
-            }
-            
-        });
+        deleteCoder(coders,idToDelete);
 
         alerSmallSuccess("Coder deleted")
         getTableForEach(coders,tbody);
 
+        if(event.target.classList.contains("btn-danger")){
+            const idToUpdate = event.target.getAttribute("data-id");
+            const coder = coders.find(coder => coder.id == idToUpdate);
+
+            name.value = coder.name;
+            lastName.value = coder.lastName;
+            email.value = coder.email;
+            
+        }
     }
 })
-
-
-getTableForEach(coders,tbody);
-

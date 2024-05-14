@@ -30,3 +30,12 @@ export function create(name,lastName,email) {
         }
     coders.push(newCoder);
 }
+
+export function deleteCoder (coders, idToDelete) {
+    coders.forEach((coder,index) => {
+        if(coder.id == idToDelete) {
+            coders.splice(index, 1);
+        }
+        
+    });
+}
